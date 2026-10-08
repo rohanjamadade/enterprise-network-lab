@@ -11,7 +11,7 @@ A campus-style enterprise network built and documented in Cisco Packet Tracer. I
                     |
                  Router
                     |
-           Core L3 Switch (Catalyst 9300)
+           Core L3 Switch (Catalyst 3650)
             /       |        \
      Access SW1  Access SW2   Server
         |            |
