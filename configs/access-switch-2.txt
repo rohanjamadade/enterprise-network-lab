@@ -1,0 +1,57 @@
+! Enterprise Network Lab
+! Device: ACCESS-SW2
+! Model: Cisco Catalyst 2960-24TT
+! Fictional lab configuration
+
+hostname ACCESS-SW2
+no ip domain-lookup
+
+vlan 10
+ name USERS
+vlan 20
+ name FINANCE
+vlan 30
+ name IT
+vlan 40
+ name SERVERS
+vlan 50
+ name VOICE
+vlan 99
+ name MANAGEMENT
+
+spanning-tree mode rapid-pvst
+
+interface GigabitEthernet0/1
+ description TRUNK-TO-CORE-SW1
+ switchport mode trunk
+ switchport trunk native vlan 99
+ switchport trunk allowed vlan 10,20,30,40,50,99
+
+interface FastEthernet0/1
+ description PC2-FINANCE
+ switchport mode access
+ switchport access vlan 20
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ switchport port-security
+ switchport port-security maximum 2
+ switchport port-security mac-address sticky
+ switchport port-security violation restrict
+
+interface FastEthernet0/2
+ description PC3-USERS
+ switchport mode access
+ switchport access vlan 10
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ switchport port-security
+ switchport port-security maximum 2
+ switchport port-security mac-address sticky
+ switchport port-security violation restrict
+
+interface Vlan99
+ description MANAGEMENT
+ ip address 192.168.99.12 255.255.255.0
+ no shutdown
+
+ip default-gateway 192.168.99.1
